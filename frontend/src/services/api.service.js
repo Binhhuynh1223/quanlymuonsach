@@ -7,11 +7,11 @@ const commonConfig = {
   },
 };
 
-const baseURL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+const serverURL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
-export default () => {
+export default (baseURL) => {
   const instance = axios.create({
-    baseURL,
+    baseURL: `${serverURL}${baseURL}`,
     ...commonConfig,
   });
 
