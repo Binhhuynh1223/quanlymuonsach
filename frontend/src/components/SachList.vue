@@ -46,6 +46,7 @@
             <th>Đơn Giá</th>
             <th>Số Quyển</th>
             <th>Năm Xuất Bản</th>
+            <th>Hình Ảnh</th>
             <th v-if="isAdmin">Thao Tác</th>
           </tr>
         </thead>
@@ -58,6 +59,13 @@
             <td>{{ sach.DonGia.toLocaleString("vi-VN") }} VNĐ</td>
             <td>{{ sach.SoQuyen }}</td>
             <td>{{ sach.NamXuatBan }}</td>
+            <td>
+              <img
+                :src="sach.HinhAnh"
+                alt="Hình ảnh"
+                style="width: 60px; height: auto; object-fit: cover;"
+              />
+            </td>
             <td v-if="isAdmin">
               <button class="btn btn-warning btn-sm me-2" @click="editSach(sach)">
                 <i class="bi bi-pencil"></i> Sửa

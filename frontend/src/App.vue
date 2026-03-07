@@ -17,7 +17,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-10">
             <!-- Hiển thị cho cả admin và user -->
             <li class="nav-item">
               <router-link class="nav-link" to="/sach">
@@ -52,7 +52,7 @@
               </router-link>
             </li>
           </ul>
-          <div class="navbar-nav">
+          <div class="navbar-nav ms-auto">
             <button class="btn btn-outline-light" @click="logout">
               <i class="bi bi-box-arrow-right me-1"></i> Đăng Xuất
             </button>

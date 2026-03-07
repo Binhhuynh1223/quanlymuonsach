@@ -13,6 +13,7 @@ function SachService(client) {
                 NamXuatBan: payload.NamXuatBan,
                 MaNXB: payload.MaNXB,
                 TacGia: payload.TacGia,
+                HinhAnh: payload.HinhAnh,
             };
             Object.keys(sach).forEach((key) => sach[key] === undefined && delete sach[key]);
             return sach;
