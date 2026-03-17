@@ -68,6 +68,11 @@
           </Field>
           <ErrorMessage name="MaNXB" class="error-feedback" />
         </div>
+        <div class="mb-3">
+          <label for="HinhAnh" class="form-label">Hình ảnh</label>
+          <Field name="HinhAnh" type="file" class="form-control" @change="handleFileChange" />
+          <ErrorMessage name="HinhAnh" class="error-feedback" />
+        </div>
         <div class="d-flex justify-content-end">
           <button class="btn btn-success me-2">
             <i class="bi bi-save me-1"></i> Lưu
@@ -117,6 +122,7 @@ export default {
         .min(1900, "Năm Xuất Bản phải từ 1900 trở lên")
         .max(new Date().getFullYear(), `Năm Xuất Bản không được lớn hơn ${new Date().getFullYear()}`),
       MaNXB: yup.string().required("Vui lòng chọn Nhà Xuất Bản"),
+      HinhAnh: yup.string().required("Vui lòng chọn Hình Ảnh"),
     });
 
     return {
@@ -128,6 +134,7 @@ export default {
         SoQuyen: 0,
         NamXuatBan: 0,
         MaNXB: "",
+        HinhAnh: "",
       },
       sachFormSchema,
       nxbList: [],
@@ -149,6 +156,7 @@ export default {
             SoQuyen: 0,
             NamXuatBan: 0,
             MaNXB: "",
+            HinhAnh: "",
           };
           this.isEditing = false;
         }
@@ -162,6 +170,16 @@ export default {
         this.nxbList = await NhaXuatBanService.getAll();
       } catch (error) {
         console.error("Lỗi khi lấy danh sách NXB:", error);
+      }
+    },
+    handleFileChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.sachLocal.HinhAnh = e.target.result;
+        };
+        reader.readAsDataURL(file);
       }
     },
     async submitSach() {
