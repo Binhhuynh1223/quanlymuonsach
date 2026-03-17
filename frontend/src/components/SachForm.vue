@@ -184,10 +184,24 @@ export default {
     },
     async submitSach() {
       try {
+        const dataSend = {
+          TenSach: this.sachLocal.TenSach,
+          TacGia: this.sachLocal.TacGia,
+          DonGia: this.sachLocal.DonGia,
+          SoQuyen: this.sachLocal.SoQuyen,
+          NamXuatBan: this.sachLocal.NamXuatBan,
+          MaNXB: this.sachLocal.MaNXB,
+        };
+        
+        if (this.sachLocal.HinhAnh && this.sachLocal.HinhAnh.startsWith('data:')) {
+          dataSend.HinhAnh = this.sachLocal.HinhAnh;
+        }
+        
         if (this.isEditing) {
-          await SachService.update(this.sachLocal.MaSach, this.sachLocal);
+          await SachService.update(this.sachLocal.MaSach, dataSend);
         } else {
-          await SachService.create(this.sachLocal);
+          dataSend.MaSach = this.sachLocal.MaSach;
+          await SachService.create(dataSend);
         }
         this.$emit("saved");
       } catch (error) {
