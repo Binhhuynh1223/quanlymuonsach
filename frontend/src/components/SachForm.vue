@@ -122,7 +122,8 @@ export default {
         .min(1900, "Năm Xuất Bản phải từ 1900 trở lên")
         .max(new Date().getFullYear(), `Năm Xuất Bản không được lớn hơn ${new Date().getFullYear()}`),
       MaNXB: yup.string().required("Vui lòng chọn Nhà Xuất Bản"),
-      HinhAnh: yup.string().required("Vui lòng chọn Hình Ảnh"),
+      HinhAnh: yup.string().when('$isEditing', (isEditing, schema) => {
+      return isEditing ? schema.notRequired() : schema.required("Vui lòng chọn Hình Ảnh");}),
     });
 
     return {
@@ -198,14 +199,18 @@ export default {
         }
         
         if (this.isEditing) {
+          console.log("Updating book with MaSach:", this.sachLocal.MaSach);
           await SachService.update(this.sachLocal.MaSach, dataSend);
         } else {
           dataSend.MaSach = this.sachLocal.MaSach;
+          console.log("Creating new book with MaSach:", this.sachLocal.MaSach);
           await SachService.create(dataSend);
         }
         this.$emit("saved");
       } catch (error) {
         console.error("Lỗi khi lưu sách:", error);
+        console.error("Mã Sách:", this.sachLocal.MaSach);
+        console.error("Chi tiết lỗi:", error.response?.data);
         alert(error.message);
       }
     },
